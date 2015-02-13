@@ -28,5 +28,4 @@ D = distEucSq(traindata, traindata);
 %imshow(Im)
 predlabels = knn(traindata, trainlabels, testdata, k, f);
 
-
 %%

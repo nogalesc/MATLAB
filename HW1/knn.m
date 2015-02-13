@@ -1,20 +1,24 @@
+      
 
 
 function predlabels = knn(traindata, trainlabels, testdata, k, f)
 predlabels = size(trainlabels);
-
+      % NUMBER OF CLASSES = 8 (labels in 'trainlabels' for 800)
+      % NUMBER OF NEAREST NEIGHBORS = k
+      % NUMBER OF TRAINING EXAMPLES = 800
+      % NUMBER OF FEATURES = 512
 switch f
   case char('euclidean')
       fprintf('Using euclidean distance.')
   case char('sqeuclidean')
       fprintf('Using squared euclidean distance.')
-      D = distEucSq(traindata, traindata);                 % 800x800
-      sum_of_D = sum(D);
-      % Sort column-wise each of the 800 columns
-      [k_distances, index] = sort(D,'ascend');
-      % Delete distances after k
+      D = distEucSq(traindata, testdata);                 % 800x800
+      % Sort column-wise each of the 800 columns by distance
+      [~, index] = sort(D,'ascend');
+      % Ignore all neighbors after k nearest neighbors
       index = delete_after_k(index);
-      % a = Matrix of classes for those k neighbors
+      % Find index replace with class #
+      % Now a = Matrix of classes for those k nearest neighbors
       a = index;
       a(a>0 & a<=100) = 1;
       a(a>100 & a<=200) = 2;
@@ -24,55 +28,17 @@ switch f
       a(a>500 & a<=600) = 6;
       a(a>600 & a<=700) = 7;
       a(a>700 & a<=800) = 8;
-      % find matlab range of values and replace with class #
-      % find(1-100) => class 1
-      % find(101-200) => class 2
-      % find(201-300) => class 3
-      % find(301-400) => class 4
-      % find(401-500) => class 5 ...
-      % find(701-800) => class 8
-      k_distances = delete_after_k(k_distances);
       % ---Now I want you to tell me what is the most common class
       % ---in each column--%
-      classification_for_each_training_example = mode(a,1);
+      predlabels = mode(a,1);
       % For each near neighbor. Fill in their class.
       
-      % NUMBER OF CLASSES = 8 (labels in 'trainlabels' for 800)
-      % NUMBER OF NEAREST NEIGHBORS = k
-      % NUMBER OF TRAINING EXAMPLES = 800
-      % NUMBER OF FEATURES = 512
+
       % ---Now let's predict the labels for the test data --%
       
       % Plot each of the 100 thingies.
       
-      
-      % Plot for each of the 800 columns, the k nearest neighbors (by
-      % distance)
-%     plot(k_distances);
-% X — Data to displaymatrix
-% Y — Data to plot against Xmatrix
-      
-      
-      several_histograms = histcounts(k_distances,8);
-      histogram(D,size(D,2))
-      % Create matrix of half Gaussian values
-      w = gausswin(k*2)
-      nw = cut_in_half(w);
-      % Repeat this half Gaussian
-      nw = repmat(nw,1,size(index,2));
-      
-      % No weights, k nearest neighbor
-      % Just count...and take the class of the
-      % most common neighbor.
-      % k = number of neighbors to look at.
-      % 
-      why = histcounts(D,size(D,2));
-      histogram(D,size(D,2))
-      % Weighted majority vote
-      % (Closest neighbors get more weight.)
-      % TRAIN DATA = 800x512 features
-      %predlabels = nw*
-     
+
       
       fprintf('Using squared euclidean distance.')
   otherwise
@@ -117,3 +83,35 @@ end
 % f); and 
  
  %}
+      % find(1-100) => class 1
+      % find(101-200) => class 2
+      % find(201-300) => class 3...
+      % find(701-800) => class 8
+      
+      % Plot for each of the 800 columns, the k nearest neighbors (by
+      % distance)
+%     plot(k_distances);
+% X — Data to displaymatrix
+% Y — Data to plot against Xmatrix
+      
+      
+%       several_histograms = histcounts(k_distances,8);
+%       histogram(D,size(D,2))
+%       % Create matrix of half Gaussian values
+%       w = gausswin(k*2)
+%       nw = cut_in_half(w);
+%       % Repeat this half Gaussian
+%       nw = repmat(nw,1,size(index,2));
+%       
+%       % No weights, k nearest neighbor
+%       % Just count...and take the class of the
+%       % most common neighbor.
+%       % k = number of neighbors to look at.
+%       % 
+%       why = histcounts(D,size(D,2));
+%       histogram(D,size(D,2))
+%       % Weighted majority vote
+%       % (Closest neighbors get more weight.)
+%       % TRAIN DATA = 800x512 features
+%       %predlabels = nw*
+     
