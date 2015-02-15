@@ -26,7 +26,7 @@ end
     cur_predlabels = knn(cur_traindata, cur_trainlabels, cur_testdata, k, f);
     % FIX THIS LATER: 
     cur_predlabels = cur_predlabels';
-%     cur_error = 0;
+    % Compare predicted labels to the ground truth for the test labels
     cur_error = calculate_error(cur_predlabels,cur_testlabels);
     disp(['ROUND = ' num2str(ROUND) '  Error this round = ' num2str(cur_error)]);
  end
@@ -51,6 +51,7 @@ cv_error = 99;
 
     
     function error = calculate_error(prediction_in, truth_in)
+        % Ask if they are not equal, then count how many are not equal.
         num_missed = sum(prediction_in ~= truth_in);
         error = num_missed/size(truth_in,1);
     end

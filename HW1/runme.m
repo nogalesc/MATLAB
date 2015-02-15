@@ -35,7 +35,7 @@ A = num2cell(predictions)
 myCell = {'Image_ID','Category'};
 finalAnswer =vertcat (myCell,A);
 % Save data to excel sheet
-% xlswrite('finalAnswer.xls',finalAnswer)
+xlswrite('test_finalAnswer.xls',finalAnswer)
 %% Problem 4.2.2
 cv_error = knncv(traindata, trainlabels, n, k, f, D)
 
