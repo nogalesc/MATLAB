@@ -23,9 +23,11 @@ end
     cur_testlabels = divided_L(:,:,ROUND);
     cur_traindata = giant_matrix_but_one(divided_D,ROUND);
     cur_trainlabels = giant_matrix_but_one(divided_L,ROUND);
-    predlabels = knn(cur_traindata, cur_trainlabels, cur_testdata, k, f);
-    cur_error = 0;
-%     cur_error = calculate_error(predlabels,cur_trainlabels);
+    cur_predlabels = knn(cur_traindata, cur_trainlabels, cur_testdata, k, f);
+    % FIX THIS LATER: 
+    cur_predlabels = cur_predlabels';
+%     cur_error = 0;
+    cur_error = calculate_error(cur_predlabels,cur_testlabels);
     disp(['ROUND = ' num2str(ROUND) '  Error this round = ' num2str(cur_error)]);
  end
 
