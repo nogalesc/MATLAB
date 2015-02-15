@@ -41,7 +41,11 @@ finalAnswer =vertcat (myCell,A);
 % xlswrite('test_finalAnswer.xls',finalAnswer)
 %% Problem 4.2.2
 cv_error = knncv(traindata, trainlabels, n, k, f, D);
-train_error = calculate_train_error(traindata,trainlabels,nk,);
+train_error = calculate_train_error(traindata,trainlabels,k,f);
+
+%{For k = 1, 2, . . . , 100, compute and plot the 10-fold (i.e., n = 10) cross-val error. Also plot
+the train error (i.e. if you train on all 800 images, and make predictions on these same 800
+images).}\%}
 % Plot train error: 
 % i.e. if you train on all 800 images, and make predictions on these same 800
 %images

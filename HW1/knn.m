@@ -29,7 +29,7 @@ end
   % Nested fuctions
     function Data_out = delete_after_k(Data_in)
       % Delete the first row (distances of 0)
-      Data_in(1,:)=[];
+      % Data_in(1,:)=[]; % NO LONGER
       % Delete all but the first k rows (closest neighbors class indexes)
       Data_in(k+1:end,:) = [];
       Data_out = Data_in;

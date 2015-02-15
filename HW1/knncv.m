@@ -1,4 +1,4 @@
-function cv_error = knncv(traindata, trainlabels, n, k, f, D)
+function cv_error = knncv(traindata, trainlabels, n, k, f)
       % NUMBER OF CLASSES = 8 (labels in 'trainlabels' for 800)
       % NUMBER OF NEAREST NEIGHBORS = k
       % NUMBER OF TRAINING EXAMPLES = 800
