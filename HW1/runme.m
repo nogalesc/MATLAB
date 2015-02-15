@@ -27,5 +27,20 @@ D = distEucSq(traindata, traindata);
 %Im = mat2gray(D);
 %imshow(Im)
 predlabels = knn(traindata, trainlabels, testdata, k, f);
+% Make special matrix of alpha-numeric entries 
+Image_ID =reshape(1:size(predlabels,2),1,size(predlabels,2));
+predictions = horzcat(Image_ID',predlabels');
+A = num2cell(predictions)
+myCell = {'Image_ID','Category'};
+finalAnswer =vertcat (myCell,A);
+% Save data to excel sheet
+xlswrite('finalAnswer.xls',finalAnswer)
+
+% csvwrite('submission.csv',finalAnswer)
+
+
+
+
+
 
 %%
