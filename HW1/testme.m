@@ -25,13 +25,13 @@ f = 'sqeuclidean';
 % Hint: precompute the distances b/t all pairs of points
 D = distEucSq(traindata, traindata);                 % 800x800
 %predlabels = knn(traindata, trainlabels, testdata, k, f);
-      sum_of_D = sum(D);
-      % Sort column-wise each of the 800 columns
-      [k_distances, index] = sort(D,'ascend');
-      % Delete distances after k
-      index = delete_after_k(index);
-      k_distances = delete_after_k(k_distances);
-      
+%       sum_of_D = sum(D);
+%       % Sort column-wise each of the 800 columns
+%       [k_distances, index] = sort(D,'ascend');
+%       % Delete distances after k
+%       index = delete_after_k(index);
+%       k_distances = delete_after_k(k_distances);
+%       
       % Create matrix of half Gaussian values
       w = gausswin(k*2)
       nw = cut_in_half(w);
@@ -64,11 +64,11 @@ D = distEucSq(traindata, traindata);                 % 800x800
 %       Data_out = Data_in;
 %     end
 % 
-%     function nw = cut_in_half(w)
-%       if(size(w,1) > 1) 
-%         nw = w((size(w,1)/2)+1:end);
-%       end
-%     end
+    function nw = cut_in_half(w)
+      if(size(w,1) > 1) 
+        nw = w((size(w,1)/2)+1:end);
+      end
+    end
 % 
 %     end
 
