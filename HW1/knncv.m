@@ -35,13 +35,8 @@ add_errors = 0;
  end
 % Cross validation error is the average error.
 cv_error = add_errors/n;
-% Plot train error: 
-% i.e. if you train on all 800 images, and make predictions on these same 800
-%images
 
-
-    
-    
+    % nested functions
     function B = giant_matrix_but_one(A, delete_me)
        % Delete the i'th matrix
        A(:,:,delete_me)=[];
@@ -53,7 +48,6 @@ cv_error = add_errors/n;
        B = permute(A,[1 3 2]);
        B = reshape(B,{},size(A,2),1);
     end
-
     
     function error = calculate_error(prediction_in, truth_in)
         % Ask if they are not equal, then count how many are not equal.
@@ -82,27 +76,4 @@ cv_error = add_errors/n;
     end
 end
 
-
-
-
-%   % Nested fuctions
-%     function [Multi_A,Multi_L] = divide_training_into_n(T_data, L_data, n)
-%       % Assumption 1: Number of rows is the number of training examples
-%       % Assumption 2: Number of rows is evenly divisible by n.
-%       div = size(T_data,1)/n;
-%       diff = div - 1;
-%       % Create multidimensional array                  
-%       Multi_A = zeros(div,size(T_data,2),n);    % 80x512x10
-%       for j = 1:n
-%           up = j*div;
-%           low = up-diff;
-% %           disp(['low = ' num2str(low) '  up = ' num2str(up)]); 
-%           cur_matrix = T_data(low:up,:);
-%           size(cur_matrix);
-%           Multi_A(:,:,j) = cur_matrix;
-%       end
-%       % Also separate the labels
-%       Multi_L = reshape(L_data,div,1,n);
-% 
-%     end
 

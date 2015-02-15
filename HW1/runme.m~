@@ -41,7 +41,7 @@ finalAnswer =vertcat (myCell,A);
 % xlswrite('test_finalAnswer.xls',finalAnswer)
 %% Problem 4.2.2
 cv_error = knncv(traindata, trainlabels, n, k, f, D);
-train_error = calculate_train_error(traindata,trainlabels,k,f);
+train_error = calculate_train_error(traindata,trainlabels,nk,);
 % Plot train error: 
 % i.e. if you train on all 800 images, and make predictions on these same 800
 %images

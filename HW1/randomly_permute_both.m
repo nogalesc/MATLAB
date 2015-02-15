@@ -1,7 +1,6 @@
     function [AA,BB] = randomly_permute_both(A, B)
         % Combine
         szA = size(A);
-        szB = size(B);
         C = horzcat(A,B);
         % Permunte rows randomly
         C(randperm(size(C,1)),:);
