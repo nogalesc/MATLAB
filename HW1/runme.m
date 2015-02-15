@@ -26,6 +26,9 @@ n = 10;                              % 10 fold cross validation
 D = distEucSq(traindata, testdata);  % Hint: precompute the distances b/t all pairs of points
 %Im = mat2gray(D);
 %imshow(Im)
+      
+%% Randomly permule traindata and trainlabels
+[traindata, trainlabels] = randomly_permute_both(traindata, trainlabels);
 %% Problem 4.2.1
 predlabels = knn(traindata, trainlabels, testdata, k, f);
 % Make special matrix of alpha-numeric entries 
@@ -35,7 +38,7 @@ A = num2cell(predictions)
 myCell = {'Image_ID','Category'};
 finalAnswer =vertcat (myCell,A);
 % Save data to excel sheet
-xlswrite('test_finalAnswer.xls',finalAnswer)
+% xlswrite('test_finalAnswer.xls',finalAnswer)
 %% Problem 4.2.2
 cv_error = knncv(traindata, trainlabels, n, k, f, D)
 

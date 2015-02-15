@@ -4,6 +4,7 @@ function cv_error = knncv(traindata, trainlabels, n, k, f, D)
       % NUMBER OF TRAINING EXAMPLES = 800
       % NUMBER OF FEATURES = 512
       % NUMBER OF PARTITIONS OF TRAINING LABLES = n
+
 %% Partition training data into n parts of ~approx equal size
 [divided_D,divided_L] = divide_training_into_n(traindata,trainlabels,n);
 % Useful for checking equality of multi-dim array to original array.
@@ -17,6 +18,7 @@ end
 % Step 2. Make predictions on the held-out part
 % Step 3. Repeat for all held out folds. Call the error of these predictions our cross-val error.
 
+add_errors = 0;
  for ROUND = 1:n           
     % Take out desired fold
     cur_testdata = divided_D(:,:,ROUND);
@@ -29,14 +31,17 @@ end
     % Compare predicted labels to the ground truth for the test labels
     cur_error = calculate_error(cur_predlabels,cur_testlabels);
     disp(['ROUND = ' num2str(ROUND) '  Error this round = ' num2str(cur_error)]);
+    add_errors = add_errors + cur_error;
  end
-
-cv_error = 99;
+% Cross validation error is the average error.
+cv_error = add_errors/n;
 % Plot train error: 
 % i.e. if you train on all 800 images, and make predictions on these same 800
 %images
 
-    % Nested functions
+
+    
+    
     function B = giant_matrix_but_one(A, delete_me)
        % Delete the i'th matrix
        A(:,:,delete_me)=[];
