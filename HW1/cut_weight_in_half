@@ -1,8 +1,0 @@
-function [ output_args ] = untitled2( input_args )
-% cut the w vector into two
-      if(size(w,2) > 1) 
-        nw = w(1:size(w,2)/2);
-      end
-
-end
-

@@ -20,7 +20,7 @@ traindata = S.trainfeatgist;
 trainlabels = S.trainlabels;
 testdata = S.testfeatgist;
 % Choose k,f,n (D is optional)
-k = 7;
+k = 9;
 f = 'sqeuclidean';
 n = 10;                              % 10 fold cross validation
 %% Randomly permute traindata and trainlabels
