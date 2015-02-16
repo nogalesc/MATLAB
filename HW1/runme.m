@@ -1,5 +1,5 @@
 % Nearest Neighbor script to run knncv.m and knn.m
-
+% Author: Chris Nogales
 
 % Predict labels
 %% Obtain data and set variables
@@ -20,14 +20,10 @@ traindata = S.trainfeatgist;
 trainlabels = S.trainlabels;
 testdata = S.testfeatgist;
 % Choose k,f,n (D is optional)
-k = 6;
+k = 7;
 f = 'sqeuclidean';
 n = 10;                              % 10 fold cross validation
-D = distEucSq(traindata, testdata);  % Hint: precompute the distances b/t all pairs of points
-%Im = mat2gray(D);
-%imshow(Im)
-      
-%% Randomly permule traindata and trainlabels
+%% Randomly permute traindata and trainlabels
 [traindata, trainlabels] = randomly_permute_both(traindata, trainlabels);
 %% Problem 4.2.1
 predlabels = knn(traindata, trainlabels, testdata, k, f);
@@ -37,7 +33,7 @@ predictions = horzcat(Image_ID',predlabels');
 A = num2cell(predictions);
 myCell = {'Image_ID','Category'};
 finalAnswer =vertcat (myCell,A);
-% Save data to excel sheet
+% Uncomment the following line to save data to excel sheet:
 % xlswrite('test_finalAnswer.xls',finalAnswer)
 %% Problem 4.2.2
 cv_error = knncv(traindata, trainlabels, n, k, f);
@@ -53,17 +49,15 @@ f = 'sqeuclidean';
 CV_ERRORS = zeros(100,1);
 TRAIN_ERRORS = zeros(100,1);
 for k = 1:100
-% k = 1
     cur_cv_error = knncv(traindata, trainlabels, n, k, f);
     CV_ERRORS(k,1) = cur_cv_error;
     cur_train_error = calculate_train_error(traindata,trainlabels, k, f);
     TRAIN_ERRORS(k,1) = cur_train_error;
 end
-plot(CV_ERRORS);
-hold on;
-plot(TRAIN_ERRORS);
-
-[M Indx] = min(CV_ERRORS)
+x = 1:k;
+plot(x,CV_ERRORS,x,TRAIN_ERRORS);
+legend('CV ERRORS','TRAIN ERRORS');
+[M Indx] = min(CV_ERRORS);
 
 
 
