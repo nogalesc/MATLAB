@@ -4,7 +4,8 @@
 clc
 clear
 load('cars.mat')
-loocvreg_slow(xTr,yTr)
+slow_rmse = loocvreg_slow(xTr,yTr)
+fast_rmse = loocvreg_fast(xTr,yTr)
 %%
 % 
 %  PREFORMATTED
