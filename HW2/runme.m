@@ -34,10 +34,12 @@ h = sigmoid(X*w);
 tol = 100;
 prev_w = w;
 while tol>.00001  % *desired accuracy*
-    prev_w = w;
     w = w + eta*X'*(y-h) - eta*lambda*w;
     tol = abs(w - prev_w);
+    prev_w = w;
 end
+% Predict Train
+p = predict(w, X);
 % Compute and display initial cost and gradient for regularized logistic
 % regression
 % [cost, grad] = costFunctionReg(initial_w, TrainD, TrainL, lambda);

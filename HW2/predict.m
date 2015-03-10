@@ -14,8 +14,9 @@ p = zeros(m, 1);
 %               your learned logistic regression parameters. 
 %               You should set p to a vector of 0's and 1's
 %
-
-prelim = theta'*X;
+whos theta
+whos X
+prelim = X*theta;
 find(prelim > 0.5);
 end
 
