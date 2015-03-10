@@ -1,0 +1,61 @@
+% HW2
+
+%% Problem 2.8
+clc
+clear
+load('cars.mat')
+slow_rmse = loocvreg_slow(xTr,yTr)
+fast_rmse = loocvreg_fast(xTr,yTr)
+%% Problem 4.3
+load('SenatorVoting.mat')
+% Step 1. Prepare data into trainining and test sets
+% Add intercept term to x and X_test
+m = size(TrainData,1); % number of training examples
+% Add 1 to the TrainData features (543)
+TrainData = [ones(m, 1) TrainData]; 
+% Randomly permute data and split it into training and test data
+[XX ,YY] = randomly_permute_both(TrainData, TrainLabel);
+[TrainD, TrainL, Te ] = split_train_test(XX);
+[TestD, TestL ] = split_train_test(YY);
+% Step 2. Train Logistic Regression classifier
+% Set regularization parameter lambda to 0.001
+lambda = 0.001;
+NumTrainingData = size(TrainD);
+% Initialize fitting parameters
+param_sz = size(TrainD, 1);
+initial_theta = zeros(param_sz, 1);
+J = 0;
+theta = initial_theta;
+X = TrainD;
+y = TrainL;
+gradient = zeros(size(theta));
+% Compute and display initial cost and gradient for regularized logistic
+% regression
+% [cost, grad] = costFunctionReg(initial_theta, TrainD, TrainL, lambda);
+%=============================================================
+% hypothesis:
+h = sigmoid(X*theta);
+% J = (1/m)*sum(-y'.*log(h)-(1-y)'.*log(1-h)) + (lambda/(2*m))*(sum(theta.^2)-theta(1,1)^2);
+
+theta_1 = theta;
+theta_1(1) = 0;
+% J = 1/m * ( -y' * log(sigmoid(X*theta)) - (1-y)' * log(1 - sigmoid(X*theta))) + lambda/(2*m) * sum (theta_1 .* theta_1);
+% grad = (X' * (sigmoid(X*theta)-y) + lambda .* theta_1)./ m;
+
+% % calculate initial cost:
+% J = (1/m)*sum(-y'.*log(h)-(1-y)'.*log(1-h)) + (lambda/(2*m))*(sum(theta.^2)-theta(1,1)^2);
+% grad(1,1) = (1/m)*sum((sigmoid(X*theta)-y).*X(:,1));
+% for i=2:length(theta)
+% grad(i,1) = (1/m)*sum((h)-y).*X(:, i)) + lambda*theta(i,1)/m;
+% end
+% fprintf('Cost at initial theta (zeros): %f\n', cost);
+% fprintf('\nProgram paused. Press enter to continue.\n');
+% pause;
+% 
+% w_hat = pinv(TrainD)*TrainL;     
+% Y_hat = X*w_hat;
+% 
+% %     sigmoid.m 
+%     costFunction.m
+%     predict.m
+%     costFunctionReg.m

@@ -1,4 +1,4 @@
-function [J, gradient] = costFunctionReg(theta, X, y, lambda)
+function [J, grad] = costFunctionReg(theta, X, y, lambda)
 %COSTFUNCTIONREG Compute cost and gradient for logistic regression with regularization
 %   J = COSTFUNCTIONREG(theta, X, y, lambda) computes the cost of using
 %   theta as the parameter for regularized logistic regression and the
@@ -6,55 +6,24 @@ function [J, gradient] = costFunctionReg(theta, X, y, lambda)
 
 % Initialize some useful values
 m = length(y); % number of training examples
-
-% You need to return the following variables correctly 
+% Return J (cost) and grad (gradient)
 J = 0;
-gradient = zeros(size(theta));
+grad = zeros(size(theta));
+%=============================================================
+% hypothesis:
+h = sigmoid(X*theta);
 
+% theta_1 = theta;
+% theta_1(1) = 0;
+% J = 1/m * ( -y' * log(sigmoid(X*theta)) - (1-y)' * log(1 - sigmoid(X*theta))) + lambda/(2*m) * sum (theta_1 .* theta_1);
+% grad = (X' * (sigmoid(X*theta)-y) + lambda .* theta_1)./ m;
 
-% ====================== YOUR CODE HERE ======================
-% Instructions: Compute the cost of a particular choice of theta.
-%               You should set J to the cost.
-%               Compute the partial derivatives and set grad to the partial
-%               derivatives of the cost w.r.t. each parameter in theta
-
-% hypothesis = mx1 column vector
-hypothesis = sigmoid(X*theta);
-% initial cost = J
-
-J = (1/m) * sum( -y' * log(hypothesis) + (1 - y)'* log(1 - hypothesis));
-regularization = lambda/(2*m) * sum( theta(2:end).^2 );
-J = J + regularization;
-
-% J = 1/m * ( -y' * log(hypothesis) - (1-y)' * log(1-hypothesis)) + regularization;
-
-
-% compute the gradient
-for i = 1:m
-% hypothesis = mx1 column vector
-% y = mx1 column vector
-% X = mxn matrix
-gradient = gradient + ( hypothesis(i) - y(i) ) * X(i, :)';
+% calculate initial cost:
+J = (1/m)*sum(-y'.*log(h)-(1-y)'.*log(1-h)) + (lambda/(2*m))*(sum(theta.^2)-theta(1,1)^2);
+grad(1,1) = (1/m)*sum((sigmoid(X*theta)-y).*X(:,1));
+for i=2:length(theta)
+grad(i,1) = (1/m)*sum((h)-y).*X(:, i)) + lambda*theta(i,1)/m;
 end
-regularization = lambda/m * [0; theta(2:end)];
-% where [0; theta(2:end)] is the same column vector theta beginning with a value of '0' at index
-% 1 and then containing the old values from index 2:end of theta
-% gradient = nx1 column vector
-gradient = (1/m) * gradient + regularization;
-
-% 
-% % Gradient Descent
-% for i = 1:m
-% % hypothesis = mx1 column vector
-% % y = mx1 column vector
-% % X = mxn matrix
-% gradient = gradient + ( hypothesis(i) - y(i) ) * X(i, :)' + (lambda/m)*(theta);
-% end
-% % gradient = nx1 column vector
-% gradient = (1/m) * gradient;
-
-
-
 % =============================================================
 
 end
