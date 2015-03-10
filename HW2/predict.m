@@ -16,7 +16,8 @@ p = zeros(m, 1);
 %
 whos theta
 whos X
-prelim = X*theta;
-find(prelim > 0.5);
+p = X*theta;
+p(p>0.5) = 1;
+p(p<=0.5) = 0;
 end
 
