@@ -16,6 +16,7 @@ n = size(y,1);
 % X 93 samples x 7 features 
 X = [ones(n,1) X];
 %% Calculate rmse fast
+tic
 % Matrix that hold rmse values at each iteration
 m_loocv_error = zeros(n,1);    
 % Calculate the H matrix
@@ -31,4 +32,6 @@ end
 % Add up all the squared errors to the loocv error variable
 loocv = sum(m_loocv_error);
 rmse = sqrt((1/n)*loocv);
+disp('Running loocvreg_slow');
+toc
 

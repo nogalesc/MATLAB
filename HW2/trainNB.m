@@ -1,15 +1,36 @@
-function [ theta ] = trainNB(X,y)
-% for each value of that feature c of K possible values: do
-% for each value j of Y in {0,1} do
-    k = 2; % Number of possible features
-    
-    nestedfx
-    theta = 0;
-    
-   function countY
-      disp('This is the nested function')
-   end
-   % Num of (Xi given Xi = c, Y = j) + alpha
-   % Num of (Y = j) + alpha*K
+function [ confidence ] = trainNB(X,Y,u,v)
+    yu=unique(Y);  % Return the values of the labels {0,1}
+    nc=length(yu); % number of classes = 2
+    nf=size(X,2);  % independent variables (features) = 543
+    ns=length(v);  % number of samples in the test set = 16
+       % compute class probability using training set
+    for i=1:nc
+        % how many zero(republican) class over the whole?
+        % how many one (democrat) class over the whole?
+        fy(i)=sum(double(Y==yu(i)))/length(Y);              % 1x2 vector
+    end
+    % normal distribution parameters using training set
+    for i=1:nc
+        % extract rows that match a certain class, store in xi
+        xi=X((Y==yu(i)),:);         % temporary matrix
+        % get the mean and variance of each feature
+        mu(i,:)=mean(xi,1);         % 2x543 matrix
+        sigma(i,:)=std(xi,1);       % 2x543 matrix
+    end
+    % probability for test set
+    for j=1:ns
+        % For each candidate, and for each class, returns the normal
+        % probability
+        fu=normcdf(ones(nc,1)*u(j,:),mu,sigma);
+        % multiply all probabilities from each feature (row-wise)
+        P(j,:)=fy.*prod(fu,2)';     % 16x2 matrix
+    end
+    % get predicted output for each sample in the test set
+    [~,id]=max(P,[],2);           % index of maximum probability
+    for i=1:length(id)
+        pv(i,1)=yu(id(i));        % convert from index to {0,1}
+    end
+    confidence=sum(pv==v)/length(pv)*100;
+%     fprintf('\nNB Test Set Accuracy: %f\n',confidence);   
 end
 

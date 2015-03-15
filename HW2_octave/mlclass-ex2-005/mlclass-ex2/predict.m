@@ -25,3 +25,13 @@ p(p<=0.5)=0;
 
 
 end
+
+
+% TEST:
+% % Test Case #1
+% % >> predict([1 2]',[pi tan(pi)])
+% % ans =  1
+% % 
+% % Test Case #2
+% % >> predict([sin(pi) cos(pi)]',[cot(pi) tan(pi)])
+% % ans = 0

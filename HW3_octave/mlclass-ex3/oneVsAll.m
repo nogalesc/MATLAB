@@ -49,7 +49,7 @@ X = [ones(m, 1) X];
 %                 initial_theta, options);
 %
 % Example Code for fmincg:
-
+for c=1:num_labels;
     % Set Initial theta
     initial_theta = zeros(n + 1, 1);
     
@@ -58,10 +58,20 @@ X = [ones(m, 1) X];
 
     % Run fmincg to obtain the optimal theta
     % This function will return theta and the cost 
-    [theta] = ...
+    [all_theta(c,:)] = ...
         fmincg (@(t)(lrCostFunction(t, X, (y == c), lambda)), ...
                 initial_theta, options);
+end
 % =========================================================================
 
 
 end
+
+
+% @(t) is a function handle of an anonymous function that points to lrCostFunction, and t is theta. 
+% % normally, you create  a function handle like this:
+% cf = @(t) (lrCostFunction(t,X,(y==c),lambda)
+
+
+
+

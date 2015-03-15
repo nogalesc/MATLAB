@@ -16,6 +16,7 @@ n = size(y,1);
 % X 93 samples x 7 features 
 X = [ones(n,1) X];  
 %% Calculate rmse slowly
+tic
 % Matrix that hold rmse values at each iteration
 m_loocv_error = zeros(n,1);   
 % Make temporary X and y matrices
@@ -38,3 +39,5 @@ for i=1:n
 end
 loocv = sum(m_loocv_error);
 rmse = sqrt((1/n)*loocv);
+disp('Running loocvreg_slow');
+toc

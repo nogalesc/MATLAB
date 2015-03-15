@@ -1,4 +1,7 @@
     function [AA,BB] = randomly_permute_both(A, B)
+    % A is a nxm matrix
+    % B is a nx1 matrix
+    % C is a combo of both
         % Combine
         szA = size(A);
         C = horzcat(A,B);
