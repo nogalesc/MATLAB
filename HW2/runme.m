@@ -32,8 +32,19 @@ end
 fprintf('\nNaive Bayes Average Accuracy: %f\n',mean(NB_confidence));
 fprintf('\nLogistic Regression Average Accuracy: %f\n',mean(LR_confidence));
 %% Problem 4.3.2  Learning Curve
-% for split=1:5
-% % Use only [2 4 8 16 33] of these points for learning the
-% % parameters of NB and LR
-% test = [2 4 8 16 33];
-% end
+% load data (again)
+clear; close all;
+load('SenatorVoting.mat')
+% Use only [2 4 8 16 33] of these points for learning the
+% parameters of NB and LR
+idx = [2 4 8 16 33];
+for cur=1:5
+    % Permute randomly the samples
+    [XX ,YY] = randomly_permute_both(TrainData, TrainLabel);
+    [TrainD, TrainL, TestD, TestL ] = split_train_test(XX,YY);
+    X = TrainD(idx,:);
+    Y = TrainL(idx);
+    u = TestD;
+    v = TestL;
+
+end
