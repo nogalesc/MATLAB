@@ -32,6 +32,6 @@ end
 % Add up all the squared errors to the loocv error variable
 loocv = sum(m_loocv_error);
 rmse = sqrt((1/n)*loocv);
-disp('Running loocvreg_slow');
+disp('Running loocvreg_fast');
 toc
 

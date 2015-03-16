@@ -1,4 +1,4 @@
-function [ confidence ] = trainLR(X,Y,u,v,lambda)
+function [ confidence, theta ] = trainLR(X,Y,u,v,lambda)
     nf=size(X,2);  % number of features = 543
     % Initialize fitting parameters
     initial_theta = zeros(nf, 1);     % all_theta = 543x1
@@ -13,6 +13,6 @@ function [ confidence ] = trainLR(X,Y,u,v,lambda)
     % fprintf('Cost at theta found by fminunc: %f\n', cost);
     % Predict & calculate accuracy on test set
     pred = predictLR(theta, u);
-    confidence = mean(double(pred == v)) * 100;
+    confidence = mean(double(pred == v));
     % fprintf('\nLR Test Set Accuracy: %f\n',confidence);
 end

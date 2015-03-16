@@ -1,4 +1,4 @@
-function [ confidence ] = trainNB(X,Y,u,v)
+function [ confidence , pv] = trainNB(X,Y,u,v)
     yu=unique(Y);  % Return the values of the labels {0,1}
     nc=length(yu); % number of classes = 2
     nf=size(X,2);  % independent variables (features) = 543
@@ -14,14 +14,29 @@ function [ confidence ] = trainNB(X,Y,u,v)
         % extract rows that match a certain class, store in xi
         xi=X((Y==yu(i)),:);         % temporary matrix
         % get the mean and variance of each feature
-        mu(i,:)=mean(xi,1);         % 2x543 matrix
-        sigma(i,:)=std(xi,1);       % 2x543 matrix
+        if(size(xi,1) ==1)
+            mu(i,:)=mean(xi,1);         % 2x543 matrix
+            sigma(i,:) = ones(1,nf);
+        else
+            mu(i,:)=mean(xi,1);         % 2x543 matrix
+            sigma(i,:)=std(xi,1);       % 2x543 matrix
+        end
     end
+    whos mu
+    whos sigma
     % probability for test set
     for j=1:ns
         % For each candidate, and for each class, returns the normal
         % probability
-        fu=normcdf(ones(nc,1)*u(j,:),mu,sigma);
+        temp_a = ones(nc,1);
+        temp_b = u(j,:);
+%         nc
+%         j
+%         whos temp_a
+%         whos temp_b
+%         whos mu
+%         whos sigma
+        fu=normcdf(temp_a*temp_b,mu,sigma);
         % multiply all probabilities from each feature (row-wise)
         P(j,:)=fy.*prod(fu,2)';     % 16x2 matrix
     end
@@ -30,7 +45,7 @@ function [ confidence ] = trainNB(X,Y,u,v)
     for i=1:length(id)
         pv(i,1)=yu(id(i));        % convert from index to {0,1}
     end
-    confidence=sum(pv==v)/length(pv)*100;
+    confidence=sum(pv==v)/length(pv);
 %     fprintf('\nNB Test Set Accuracy: %f\n',confidence);   
 end
 
