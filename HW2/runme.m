@@ -3,8 +3,8 @@
 % %% Problem 2.8
 clc; clear; close all;
 load('cars.mat')
-slow_rmse = loocvreg_slow(xTr,yTr);
-fast_rmse = loocvreg_fast(xTr,yTr);
+slow_rmse = loocvreg_slow(xTr,yTr)
+fast_rmse = loocvreg_fast(xTr,yTr)
 %% Problem 4.3.1 Train LR and NB
 clear; close all;
 load('SenatorVoting.mat')

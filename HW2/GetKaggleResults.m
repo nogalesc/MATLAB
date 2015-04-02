@@ -24,7 +24,7 @@ myCell = {'Senator_ID','Party'};
 finalAnswer =vertcat (myCell,A);
 fprintf('\nLogistic Regression Accuracy: %f\n', LR_confidence);
 % save mat file
-save('HW2_Chris_Nogales_predictions.m','finalAnswer','w')
+save('HW2_Chris_Nogales_predictions.mat','finalAnswer','w')
 % Uncomment the following line to save data to excel sheet:
 % xlswrite('Chris_Nogales.xls',finalAnswer)
         

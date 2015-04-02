@@ -22,8 +22,8 @@ function [ confidence , pv] = trainNB(X,Y,u,v)
             sigma(i,:)=std(xi,1);       % 2x543 matrix
         end
     end
-    whos mu
-    whos sigma
+%     whos mu
+%     whos sigma
     % probability for test set
     for j=1:ns
         % For each candidate, and for each class, returns the normal
