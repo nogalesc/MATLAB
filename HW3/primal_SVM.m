@@ -6,11 +6,9 @@ C = 10;
 y = traindata(:,29);
 X = traindata;
 X(:,29) = [];
-% We have 28 features, 10,000 samples, last col is label
-ntrain = size(X,1);            % matrix 10000
-ndim = size(X,2);              % matrix 28
-% size of z = [w w0 ei]
-sz_z = ndim + ntrain + 1;      % 10,029
+ntrain = size(X,1);            % 10,000
+ndim = size(X,2);              % 28
+sz_z = ndim + 1 + ntrain;      % % size of z = [w w0 ei] => 10,029
 % construct H
 H = zeros(sz_z);               % 10,029 x 10,029
 H(1:ndim,1:ndim) = eye(ndim);
@@ -33,11 +31,11 @@ toc
 w = z(1:ndim,1);
 w0 = z(ndim+1,1);
 % w0 = sum(y - (X*svmModel.w))/ntrain;            % My bias is w0
-save('priaml_SVM_results_w_w0.mat','z','err','lm','w','w0');
+save('primal_SVM_results_w_w0.mat','z','err','lm','w','w0');
 
 % tic;xqpas=qpas(H,f,L,k,A,b,l,u,dsp);toc
 % toc
-%                                                                                                                                                                                                                                                                                                                                                                       
+%                                                                                                                                                                                                                                                                                                                                                                      
 %  In Matlab a call to this function would look like:
 %
 %    [x,err,lm] = qp(H,f,L,k,A,b,l,u,display);
@@ -46,8 +44,8 @@ save('priaml_SVM_results_w_w0.mat','z','err','lm','w','w0');
 %
 %        H: An (n x n) positive semi-definite symmetric matrix
 %
-%	     f: A n element column vector
-%	
+%         f: A n element column vector
+%   
 %    (L,k): General linear inequality constraints
 %
 %    (A,b): General linear equality constraints
@@ -64,6 +62,4 @@ save('priaml_SVM_results_w_w0.mat','z','err','lm','w','w0');
 %
 %            err: error number, if err=0, then x is optimal
 %
-%             lm: structure of Lagrange multipliers 
-
-
+%             lm: structure of Lagrange multipliers
