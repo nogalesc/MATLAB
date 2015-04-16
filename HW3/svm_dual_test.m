@@ -4,9 +4,14 @@ load('hw3_raw_data.mat');    % First extract test data = 10k x 28
 all_data = load('dual_SVM_result_11am.mat');
 X = all_data.X;
 y = all_data.y;
-z = all_data.alphas;
+alpha = all_data.alphas;
+% Anything below and above the thresholds do not count
+p(p<=C) = 0;
+p(p>=0) = 0;
+C = 100; %(I think)
+% Use KKT conditions to obtain w, w0
 ntrain = size(X,1);
-w = X'*(z.*y);
+w = X'*(alpha.*y);
 w0 = sum(y - (X*w))/ntrain;            % My bias is w0
 
 % Verify how well it works on validation data

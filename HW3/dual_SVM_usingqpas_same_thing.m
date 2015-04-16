@@ -25,7 +25,7 @@ ndim = size(X,2);                      % 28 features
 load('negative_H.mat')
 H = -H;
 % Other variables
-f = (1)*ones(size(y));                            % construct f = 10000x1 col vector
+f = (-1)*ones(size(y));                            % construct f = 10000x1 col vector
 A = -1*eye(ntrain);                                        % construct A = y? NO. A = y'? YES.
 b = zeros(size(y));                           % construct b = 1x10000
 % b = 0;

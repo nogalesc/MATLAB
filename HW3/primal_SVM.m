@@ -1,7 +1,7 @@
 % single SVM
 clc; clear;
 load('hw3_raw_data.mat');      % First extract data
-C = 10;
+C = 100;
 % Extract labels
 y = traindata(:,29);
 X = traindata;
