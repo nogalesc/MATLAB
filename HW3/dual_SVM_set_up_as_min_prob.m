@@ -33,25 +33,19 @@ b = zeros(size(y));                           % construct b = 1x10000
 % beq = 0;
 lb = zeros(size(y));                                        % set vector of doubles lb
 ub = C*ones(size(y));                                       % set vector of coubles C
-% Aeq(1,:) = y';
-% beq = 0; 
-Aeq = zeros(ntrain);
-Aeq(1,:) = y';
-beq = zeros(size(y));
+
 
 tic  
 % options = optimoptions([],...
 %     '[],[],'Display','iter');
-alphas = quadprog(H,f,A,b,Aeq,beq,lb,ub,[]);
+alphas = quadprog(H,f,A,b,[],[],lb,ub,[]);
 % [z err lm] = qpas(H,f,[],[],A,b,lb,ub);  
 % x = quadprog(H,f,A,b,Aeq,beq,lb,ub,x0,options)
 % alphas = qpas(H,f,A,b,[],[],lb,ub);
 % [alphas,err,lm] = qpas(H,f,[],[],A,b,lb,ub,display);
 toc
 
-save('dual_SVM_result_11am.mat','alphas','X','y');
-
-% Elapsed time is 1189.497514 seconds.
+save('dual_SVM_result_9am.mat','alphas');
 
 % Save results:
 % Elapsed time is 1265.487561 seconds.

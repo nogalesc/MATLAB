@@ -1,13 +1,35 @@
 % Test SVM dual results
-load('hw3_raw_data.mat','testdata');    % First extract test data = 10k x 28
-load('dual_SVM_w_w0_try3.mat');      % Load w and w0
-y = testdata*w + w0;
-n = size(testdata,1);  
+load('hw3_raw_data.mat');    % First extract test data = 10k x 28
+% load('dual_SVM_results_latest_and_greatest.mat');      % Load z,X,y
+all_data = load('dual_SVM_result_11am.mat');
+X = all_data.X;
+y = all_data.y;
+z = all_data.alphas;
+ntrain = size(X,1);
+w = X'*(z.*y);
+w0 = sum(y - (X*w))/ntrain;            % My bias is w0
+
+% Verify how well it works on validation data
+true_y = valdata(:,29);
+valdata(:,29) = [];                  
+preds = valdata*w + w0;
+% set all negative values to -1 and positive values to +1
+n = size(valdata,1);  
+% show ROC curve
+[X,Y] = perfcurve(true_y,preds,+1);
+plot(X,Y);
+xlabel('False positive rate'); ylabel('True positive rate')
+title('ROC for classification by SVM')
+% Copy predictions to calculate accuracy on training data 
+% Accuracy = # right/ # total
+p = preds;
+p(p<0) = -1;
+p(p>0) = +1;
+% Multiply the two vectors. 
+% Equal ones will be positive, diff ones are negative.
+Accuracy_v = p.*true_y;
+num_right = sum(Accuracy_v>0);
+Accuracy = num_right/n
 % Make special matrix of alpha-numeric entries 
 my_ID = [1:n];
-predictions = horzcat(my_ID',y);
-A = num2cell(predictions);
-myCell = {'EventID','Prediction'};
-finalAnswer =vertcat (myCell,A);
-% Uncomment the following line to save data to excel sheet:
-xlswrite('Nogales_Chris_HW3_try3.xls',finalAnswer)
+finalAnswer = horzcat(my_ID',preds);
