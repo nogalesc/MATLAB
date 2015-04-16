@@ -13,7 +13,7 @@ sz_z = ndim + 1 + ntrain;      % % size of z = [w w0 ei] => 10,029
 H = zeros(sz_z);               % 10,029 x 10,029
 H(1:ndim,1:ndim) = eye(ndim);
 % construct f
-f = [zeros(ndim,1); zeros(1); C*ones(ntrain,1)];  % 10,029
+f = [zeros(ndim,1); zeros(1); C*ones(ntrain,1)];  % 10,029x1
 % construct A
 A = -[(y*ones(1,ndim)).*X  y eye(ntrain)];
 % construct b
